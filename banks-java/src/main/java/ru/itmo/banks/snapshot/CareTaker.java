@@ -4,16 +4,17 @@ import ru.itmo.banks.account.Account;
 import ru.itmo.banks.exception.BanksException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CareTaker {
     private final Account account;
-    private final ArrayList<Snapshot> balanceStates = new ArrayList<>();
+    private final List<Snapshot> balanceStates = new ArrayList<>();
 
     public CareTaker(Account account) {
         this.account = account;
     }
 
-    public final ArrayList<Snapshot> getBalanceStates() { return balanceStates; }
+    public final List<Snapshot> getBalanceStates() { return balanceStates; }
 
     public final void saveState(Snapshot balance) {
         balanceStates.add(balance);
