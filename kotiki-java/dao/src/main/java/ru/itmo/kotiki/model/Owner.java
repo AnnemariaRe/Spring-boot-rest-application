@@ -16,7 +16,7 @@ public class Owner {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "birthdayDate", nullable = false)
+    @Column(name = "birthday_date", nullable = false)
     private Date birthdayDate;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)

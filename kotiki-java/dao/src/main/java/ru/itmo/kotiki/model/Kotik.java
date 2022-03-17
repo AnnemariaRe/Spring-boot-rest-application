@@ -18,7 +18,7 @@ public class Kotik {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "birthdayDate", nullable = false)
+    @Column(name = "birthday_date", nullable = false)
     private Date birthdayDate;
 
     @Column(name = "breed", nullable = false)

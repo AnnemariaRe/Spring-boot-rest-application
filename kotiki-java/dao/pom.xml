@@ -4,25 +4,27 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>kotiki-java</artifactId>
-        <groupId>org.example</groupId>
+        <groupId>ru.itmo.kotiki-java</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>dao</artifactId>
 
+    <properties>
+        <hibernate-core.version>6.0.0.CR1</hibernate-core.version>
+        <postgresql.version>42.3.3</postgresql.version>
+    </properties>
+
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>6.0.0.CR1</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.3.3</version>
         </dependency>
     </dependencies>
 

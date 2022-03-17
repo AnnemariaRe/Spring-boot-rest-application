@@ -66,7 +66,7 @@ public class KotikServiceTest {
         var kotik = new Kotik();
         kotik.setName("Bob");
         kotik.setBreed("British");
-        kotik.setColor(Color.brown);
+        kotik.setColor(Color.BROWN);
         kotik.setBirthdayDate(new Date(System.currentTimeMillis()));
 
         dao.add(kotik);
@@ -79,7 +79,7 @@ public class KotikServiceTest {
         var kotik = new Kotik();
         kotik.setName("Bob");
         kotik.setBreed("British");
-        kotik.setColor(Color.brown);
+        kotik.setColor(Color.BROWN);
         kotik.setBirthdayDate(new Date(System.currentTimeMillis()));
 
         dao.add(kotik);
@@ -93,7 +93,7 @@ public class KotikServiceTest {
         var kotik = new Kotik();
         kotik.setName("Bob");
         kotik.setBreed("British");
-        kotik.setColor(Color.brown);
+        kotik.setColor(Color.BROWN);
         kotik.setBirthdayDate(new Date(System.currentTimeMillis()));
 
         dao.add(kotik);

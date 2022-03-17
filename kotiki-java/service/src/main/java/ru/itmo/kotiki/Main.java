@@ -19,14 +19,14 @@ public class Main {
 
         Kotik kotik = new Kotik();
         kotik.setName("Murka");
-        kotik.setColor(Color.brown);
+        kotik.setColor(Color.BLACK);
         kotik.setBreed("sphynx");
         kotik.setBirthdayDate(new Date(System.currentTimeMillis()));
         kotik.setOwner(owner);
 
         Kotik kotik2 = new Kotik();
         kotik2.setName("Bob");
-        kotik2.setColor(Color.cream);
+        kotik2.setColor(Color.CREAM);
         kotik2.setBreed("sphynx");
         kotik2.setBirthdayDate(new Date(System.currentTimeMillis()));
         kotik2.setOwner(owner);

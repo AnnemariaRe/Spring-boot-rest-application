@@ -5,7 +5,7 @@ import ru.itmo.kotiki.model.Kotik;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface KotikDaoInterface {
+public interface KotikDao {
     void add(Kotik kotik);
 
     void update(Kotik kotik);
