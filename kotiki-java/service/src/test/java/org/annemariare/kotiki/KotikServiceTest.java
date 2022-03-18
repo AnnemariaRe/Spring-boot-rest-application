@@ -1,4 +1,4 @@
-package ru.itmo.kotiki;
+package org.annemariare.kotiki;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -8,9 +8,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ru.itmo.kotiki.dao.KotikDaoImpl;
-import ru.itmo.kotiki.enums.Color;
-import ru.itmo.kotiki.model.Kotik;
+import org.annemariare.kotiki.dao.KotikDaoImpl;
+import org.annemariare.kotiki.enums.Color;
+import org.annemariare.kotiki.model.Kotik;
 
 import java.sql.Date;
 import java.sql.SQLException;

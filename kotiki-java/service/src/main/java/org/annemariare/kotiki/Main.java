@@ -1,9 +1,10 @@
-package ru.itmo.kotiki;
+package org.annemariare.kotiki;
 
-import ru.itmo.kotiki.enums.Color;
-import ru.itmo.kotiki.model.Kotik;
-import ru.itmo.kotiki.model.Owner;
-import ru.itmo.kotiki.service.OwnerService;
+
+import org.annemariare.kotiki.enums.Color;
+import org.annemariare.kotiki.model.Kotik;
+import org.annemariare.kotiki.model.Owner;
+import org.annemariare.kotiki.service.OwnerService;
 
 import java.sql.Date;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package ru.itmo.kotiki.util;
+package org.annemariare.kotiki.util;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

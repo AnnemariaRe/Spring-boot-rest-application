@@ -1,4 +1,6 @@
-package ru.itmo.kotiki.model;
+package org.annemariare.kotiki.model;
+
+
 
 import jakarta.persistence.*;
 

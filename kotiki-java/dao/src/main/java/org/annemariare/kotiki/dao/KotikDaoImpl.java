@@ -1,54 +1,54 @@
-package ru.itmo.kotiki.dao;
+package org.annemariare.kotiki.dao;
 
 import org.hibernate.Session;
-import ru.itmo.kotiki.model.Owner;
-import ru.itmo.kotiki.util.SessionFactoryUtil;
+import org.annemariare.kotiki.model.Kotik;
+import org.annemariare.kotiki.util.SessionFactoryUtil;
 
 import java.util.List;
 
-public class OwnerDaoImpl extends SessionFactoryUtil implements OwnerDaoInterface {
+public class KotikDaoImpl extends SessionFactoryUtil implements KotikDao {
     @Override
-    public void add(Owner owner) {
+    public void add(Kotik kotik) {
         openTransactionSession();
 
         Session session = getSession();
-        session.save(owner);
+        session.save(kotik);
 
         closeTransactionSession();
     }
 
     @Override
-    public void update(Owner owner) {
+    public void update(Kotik kotik) {
         openTransactionSession();
 
         Session session = getSession();
-        session.update(owner);
+        session.update(kotik);
 
         closeTransactionSession();
     }
 
     @Override
-    public void delete(Owner owner) {
+    public void delete(Kotik kotik) {
         openTransactionSession();
 
         Session session = getSession();
-        session.delete(owner);
+        session.delete(kotik);
 
         closeTransactionSession();
     }
 
     @Override
-    public Owner findById(int id) {
+    public Kotik findById(int id) {
         return getSessionFactory()
                 .openSession()
-                .get(Owner.class, id);
+                .get(Kotik.class, id);
     }
 
     @Override
-    public List<Owner> findAll() {
+    public List<Kotik> findAll() {
         return getSessionFactory()
                 .openSession()
-                .createQuery("select o from Owner o", Owner.class)
+                .createQuery("select k from Kotik k", Kotik.class)
                 .getResultList();
     }
 }

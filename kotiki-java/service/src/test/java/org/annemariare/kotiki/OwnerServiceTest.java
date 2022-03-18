@@ -1,4 +1,4 @@
-package ru.itmo.kotiki;
+package org.annemariare.kotiki;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -8,8 +8,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ru.itmo.kotiki.dao.OwnerDaoImpl;
-import ru.itmo.kotiki.model.Owner;
+import org.annemariare.kotiki.dao.OwnerDaoImpl;
+import org.annemariare.kotiki.model.Owner;
 
 import java.sql.Date;
 import java.sql.SQLException;

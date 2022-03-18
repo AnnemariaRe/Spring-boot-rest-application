@@ -1,7 +1,7 @@
-package ru.itmo.kotiki.service;
+package org.annemariare.kotiki.service;
 
-import ru.itmo.kotiki.dao.KotikDaoImpl;
-import ru.itmo.kotiki.model.Kotik;
+import org.annemariare.kotiki.dao.KotikDaoImpl;
+import org.annemariare.kotiki.model.Kotik;
 
 import java.sql.SQLException;
 import java.util.List;

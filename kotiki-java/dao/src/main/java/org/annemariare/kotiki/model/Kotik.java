@@ -1,8 +1,8 @@
-package ru.itmo.kotiki.model;
+package org.annemariare.kotiki.model;
 
 import jakarta.persistence.*;
 
-import ru.itmo.kotiki.enums.Color;
+import org.annemariare.kotiki.enums.Color;
 
 import java.sql.Date;
 import java.util.List;

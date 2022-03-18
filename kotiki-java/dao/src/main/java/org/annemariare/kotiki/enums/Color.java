@@ -1,4 +1,4 @@
-package ru.itmo.kotiki.enums;
+package org.annemariare.kotiki.enums;
 
 public enum Color {
     BLACK,

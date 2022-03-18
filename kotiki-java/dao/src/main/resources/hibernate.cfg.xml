@@ -12,7 +12,7 @@
         <property name="hbm2ddl.auto">create</property>
         <property name="show_sql">true</property>
 
-        <mapping class="ru.itmo.kotiki.model.Kotik"/>
-        <mapping class="ru.itmo.kotiki.model.Owner"/>
+        <mapping class="org.annemariare.kotiki.model.Kotik"/>
+        <mapping class="org.annemariare.kotiki.model.Owner"/>
     </session-factory>
 </hibernate-configuration>
