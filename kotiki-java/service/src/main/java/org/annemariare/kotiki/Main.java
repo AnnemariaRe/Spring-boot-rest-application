@@ -1,6 +1,5 @@
 package org.annemariare.kotiki;
 
-
 import org.annemariare.kotiki.enums.Color;
 import org.annemariare.kotiki.model.Kotik;
 import org.annemariare.kotiki.model.Owner;
