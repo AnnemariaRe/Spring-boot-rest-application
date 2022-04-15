@@ -1,31 +1,77 @@
 package org.annemariare.kotiki.service;
 
-import org.annemariare.kotiki.dao.KotikDaoImpl;
-import org.annemariare.kotiki.model.Kotik;
+import org.annemariare.kotiki.dao.KotikRepo;
+import org.annemariare.kotiki.dto.KotikDto;
+import org.annemariare.kotiki.entity.KotikEntity;
+import org.annemariare.kotiki.enums.Color;
+import org.annemariare.kotiki.exception.EntityAlreadyExistsException;
+import org.annemariare.kotiki.exception.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import static org.annemariare.kotiki.dto.KotikDto.dtoToEntity;
+import static org.annemariare.kotiki.dto.KotikDto.entityToDto;
+
+@Service
 public class KotikService {
-    private final KotikDaoImpl kotikDao = new KotikDaoImpl();
 
-    public void addKotik(Kotik kotik) {
-        kotikDao.add(kotik);
+    private final KotikRepo kotikRepo;
+
+    @Autowired
+    public KotikService(KotikRepo kotikRepo) {
+        this.kotikRepo = kotikRepo;
     }
 
-    public void updateKotik(Kotik kotik) {
-        kotikDao.update(kotik);
+    public void add(KotikDto kotik) throws EntityAlreadyExistsException {
+        if (kotikRepo.findByName(kotik.getName()) != null) {
+            throw new EntityAlreadyExistsException();
+        }
+        kotikRepo.save(dtoToEntity(kotik));
     }
 
-    public void deleteKotik(Kotik kotik) {
-        kotikDao.delete(kotik);
+    public List<KotikDto> getAll() {
+        List<KotikEntity> kotiki = kotikRepo.findAll();
+
+        List<KotikDto> dto = new ArrayList<>();
+        for (var entity : kotiki) {
+            dto.add(entityToDto(entity));
+        }
+        return dto;
     }
 
-    public Kotik findKotik(int id) throws SQLException {
-        return kotikDao.findById(id);
+    public KotikDto getOne(Long id) {
+        KotikEntity kotik = kotikRepo.findById(id);
+        return entityToDto(kotik);
     }
 
-    public List<Kotik> findAllKotiki() throws SQLException {
-        return kotikDao.findAll();
+    public KotikDto getSomeByName(String name) {
+        KotikEntity kotik = kotikRepo.findByName(name);
+        return entityToDto(kotik);
     }
+
+    public KotikDto getSomeByBreed(String breed) {
+        KotikEntity kotik = kotikRepo.findByBreed(breed);
+        return entityToDto(kotik);
+    }
+
+    public KotikDto getSomeByColor(Color color) {
+        KotikEntity kotik = kotikRepo.findByColor(color);
+        return entityToDto(kotik);
+    }
+
+    public void delete(Long id) throws EntityNotFoundException {
+        if(!kotikRepo.existsById(id)) {
+            throw new EntityNotFoundException();
+        }
+        kotikRepo.deleteById(id);
+    }
+
+    public void deleteAll() {
+        kotikRepo.deleteAll();
+    }
+
+
 }
