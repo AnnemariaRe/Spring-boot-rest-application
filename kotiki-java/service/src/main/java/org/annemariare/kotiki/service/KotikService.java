@@ -17,7 +17,7 @@ import static org.annemariare.kotiki.dto.KotikConverter.dtoToEntity;
 import static org.annemariare.kotiki.dto.KotikConverter.entityToDto;
 
 @Service
-public class KotikService {
+public class KotikService implements KotikServiceInterface {
 
     private final KotikRepo kotikRepo;
 

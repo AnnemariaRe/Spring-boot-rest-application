@@ -14,7 +14,7 @@ import java.util.List;
 import static org.annemariare.kotiki.dto.OwnerConverter.entityToDto;
 
 @Service
-public class OwnerService {
+public class OwnerService implements OwnerServiceInterface {
     private final OwnerRepo ownerRepo;
 
     @Autowired
