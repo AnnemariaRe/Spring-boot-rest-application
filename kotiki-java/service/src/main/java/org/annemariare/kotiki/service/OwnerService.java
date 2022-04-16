@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.annemariare.kotiki.dto.OwnerConverter.entityToDto;
+
 @Service
 public class OwnerService {
     private final OwnerRepo ownerRepo;
@@ -31,19 +33,19 @@ public class OwnerService {
         List<OwnerEntity> owners = ownerRepo.findAll();
         List<OwnerDto> dto = new ArrayList<>();
         for (var entity : owners) {
-            dto.add(OwnerDto.entityToDto(entity));
+            dto.add(entityToDto(entity));
         }
         return dto;
     }
 
     public OwnerDto getOne(Long id) {
         OwnerEntity owner = ownerRepo.findById(id);
-        return OwnerDto.entityToDto(owner);
+        return entityToDto(owner);
     }
 
     public OwnerDto getSomeByName(String name) {
         OwnerEntity owner = ownerRepo.findByName(name);
-        return OwnerDto.entityToDto(owner);
+        return entityToDto(owner);
     }
 
     public void delete(Long id) throws EntityNotFoundException {

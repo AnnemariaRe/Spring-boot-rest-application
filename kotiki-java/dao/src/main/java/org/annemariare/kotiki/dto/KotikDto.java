@@ -6,6 +6,8 @@ import org.annemariare.kotiki.enums.Color;
 
 import java.util.Date;
 
+import static org.annemariare.kotiki.dto.OwnerConverter.entityToDto;
+
 public class KotikDto {
     private final Long id;
     private final String name;
@@ -22,7 +24,7 @@ public class KotikDto {
         this.birthdayDate = entity.getBirthdayDate();
         this.breed = entity.getBreed();
         this.color = entity.getColor();
-        this.owner = OwnerDto.entityToDto(entity.getOwner());
+        this.owner = entityToDto(entity.getOwner());
     }
 
     public KotikDto(Long id, String name, Date birthdayDate, String breed, Color color, OwnerDto owner) {
@@ -32,16 +34,6 @@ public class KotikDto {
         this.breed = breed;
         this.color = color;
         this.owner = owner;
-    }
-
-    public static KotikDto entityToDto(KotikEntity entity) {
-        KotikDto dto = new KotikDto(entity);
-        return dto;
-    }
-
-    public static KotikEntity dtoToEntity(KotikDto dto) {
-        KotikEntity entity = new KotikEntity(dto.getId(), dto.getName(), dto.getBirthdayDate(), dto.getBreed(), dto.getColor(), OwnerDto.dtoToEntity(dto.getOwner()));
-        return entity;
     }
 
     public Long getId() {

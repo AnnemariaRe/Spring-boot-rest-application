@@ -2,6 +2,7 @@ package org.annemariare.kotiki.service;
 
 import org.annemariare.kotiki.dao.KotikRepo;
 import org.annemariare.kotiki.dto.KotikDto;
+import org.annemariare.kotiki.dto.OwnerDto;
 import org.annemariare.kotiki.entity.KotikEntity;
 import org.annemariare.kotiki.enums.Color;
 import org.annemariare.kotiki.exception.EntityAlreadyExistsException;
@@ -12,8 +13,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.annemariare.kotiki.dto.KotikDto.dtoToEntity;
-import static org.annemariare.kotiki.dto.KotikDto.entityToDto;
+import static org.annemariare.kotiki.dto.KotikConverter.dtoToEntity;
+import static org.annemariare.kotiki.dto.KotikConverter.entityToDto;
 
 @Service
 public class KotikService {
@@ -72,6 +73,4 @@ public class KotikService {
     public void deleteAll() {
         kotikRepo.deleteAll();
     }
-
-
 }
