@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class OwnerDto {
-    private Long id;
-    private String name;
+    private final Long id;
+    private final String name;
     @JsonFormat(pattern="yyyy-MM-dd")
-    private Date birthdayDate;
+    private final Date birthdayDate;
 
     public OwnerDto(OwnerEntity entity) {
         this.id = entity.getId();
@@ -18,7 +18,11 @@ public class OwnerDto {
         this.birthdayDate = entity.getBirthdayDate();
     }
 
-    public OwnerDto() {}
+    public OwnerDto(Long id, String name, Date birthdayDate) {
+        this.id = id;
+        this.name = name;
+        this.birthdayDate = birthdayDate;
+    }
 
     public static OwnerDto entityToDto(OwnerEntity entity) {
         OwnerDto dto = new OwnerDto(entity);

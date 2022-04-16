@@ -7,13 +7,13 @@ import org.annemariare.kotiki.enums.Color;
 import java.util.Date;
 
 public class KotikDto {
-    private Long id;
-    private String name;
+    private final Long id;
+    private final String name;
     @JsonFormat(pattern="yyyy-MM-dd")
-    private Date birthdayDate;
-    private String breed;
-    private Color color;
-    private OwnerDto owner;
+    private final Date birthdayDate;
+    private final String breed;
+    private final Color color;
+    private final OwnerDto owner;
 
 
     public KotikDto(KotikEntity entity) {
@@ -25,7 +25,14 @@ public class KotikDto {
         this.owner = OwnerDto.entityToDto(entity.getOwner());
     }
 
-    public KotikDto() {}
+    public KotikDto(Long id, String name, Date birthdayDate, String breed, Color color, OwnerDto owner) {
+        this.id = id;
+        this.name = name;
+        this.birthdayDate = birthdayDate;
+        this.breed = breed;
+        this.color = color;
+        this.owner = owner;
+    }
 
     public static KotikDto entityToDto(KotikEntity entity) {
         KotikDto dto = new KotikDto(entity);
