@@ -23,22 +23,5 @@ public class KotikiApplication {
     {
         SpringApplication.run(KotikiApplication.class, args);
     }
-
-    @Bean
-    CommandLineRunner commandLineRunner(KotikService service) {
-        return args -> {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = format.parse ( "2019-12-31" );
-            Date date2 = format.parse ( "2001-6-5" );
-
-            var owner = new OwnerEntity(1L, "Annemaria", date2, new ArrayList<>());
-            var kotik1 = new KotikEntity(1L, "Gosha", date, "american", Color.RED, owner);
-            var kotik2 = new KotikEntity(2L, "Pasha", date, "russian", Color.BROWN, owner);
-            kotik1.setFriend(kotik2);
-            kotik2.setFriend(kotik1);
-
-            owner.setKotik(kotik1);
-            service.add(KotikDto.entityToDto(kotik1));
-        };
-    }
+    
 }
