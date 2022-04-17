@@ -1,31 +1,19 @@
 package org.annemariare.kotiki.service;
 
-import org.annemariare.kotiki.dao.KotikDaoImpl;
-import org.annemariare.kotiki.model.Kotik;
+import org.annemariare.kotiki.dto.KotikDto;
+import org.annemariare.kotiki.enums.Color;
+import org.annemariare.kotiki.exception.EntityAlreadyExistsException;
+import org.annemariare.kotiki.exception.EntityNotFoundException;
 
-import java.sql.SQLException;
 import java.util.List;
 
-public class KotikService {
-    private final KotikDaoImpl kotikDao = new KotikDaoImpl();
+public interface KotikService {
+    void add(KotikDto kotik) throws EntityAlreadyExistsException;
+    List<KotikDto> getAll();
+    KotikDto getOne(Long id);
+    KotikDto getSomeByName(String name);
+    KotikDto getSomeByBreed(String breed);
+    KotikDto getSomeByColor(Color color);
+    void delete(Long id) throws EntityNotFoundException;
 
-    public void addKotik(Kotik kotik) {
-        kotikDao.add(kotik);
-    }
-
-    public void updateKotik(Kotik kotik) {
-        kotikDao.update(kotik);
-    }
-
-    public void deleteKotik(Kotik kotik) {
-        kotikDao.delete(kotik);
-    }
-
-    public Kotik findKotik(int id) throws SQLException {
-        return kotikDao.findById(id);
-    }
-
-    public List<Kotik> findAllKotiki() throws SQLException {
-        return kotikDao.findAll();
-    }
 }
