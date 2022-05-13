@@ -39,18 +39,20 @@ public class KotikServiceImpl implements KotikService {
     }
 
     public List<KotikDto> getAll(String username) {
-        List<KotikEntity> kotiki = kotikRepo.findAll();
+        UserEntity user = userRepo.findByUsername(username);
+
+        List<KotikEntity> kotiki = kotikRepo.findAllByOwner(user.getOwner());
         List<KotikDto> dto = new ArrayList<>();
         for (var entity : kotiki) dto.add(entityToDto(entity));
 
-        UserEntity user = userRepo.findByUsername(username);
-        if (user.getRole() == Role.ROLE_ADMIN) return dto;
-        else if (user.getOwner() != null) {
-            dto.removeIf(d -> !Objects.equals(d.getOwner().getId(), user.getOwner().getId()));
-            return dto;
-        }
+        if (user.getRole() == Role.ROLE_ADMIN) {
+            List<KotikEntity> kotiki2 = kotikRepo.findAll();
+            List<KotikDto> dto2 = new ArrayList<>();
+            for (var entity : kotiki2) dto2.add(entityToDto(entity));
 
-        throw new EntityNotFoundException();
+            return dto2;
+        }
+        return dto;
     }
 
     public KotikDto getOne(Long id, String username) {
