@@ -1,17 +1,16 @@
-package org.annemariare.kotiki.dto;
+package org.annemariare.kotiki.converter;
 
+import org.annemariare.kotiki.dto.OwnerDto;
 import org.annemariare.kotiki.entity.OwnerEntity;
 
 import java.util.ArrayList;
 
 public class OwnerConverter {
     public static OwnerDto entityToDto(OwnerEntity entity) {
-        OwnerDto dto = new OwnerDto(entity);
-        return dto;
+        return new OwnerDto(entity);
     }
 
     public static OwnerEntity dtoToEntity(OwnerDto dto) {
-        OwnerEntity entity = new OwnerEntity(dto.getId(), dto.getName(), dto.getBirthdayDate(), new ArrayList<>());
-        return entity;
+        return new OwnerEntity(dto.getId(), dto.getName(), dto.getBirthdayDate(), new ArrayList<>());
     }
 }

@@ -9,11 +9,11 @@ import java.util.List;
 
 public interface KotikService {
     void add(KotikDto kotik) throws EntityAlreadyExistsException;
-    List<KotikDto> getAll();
-    KotikDto getOne(Long id);
-    KotikDto getSomeByName(String name);
-    KotikDto getSomeByBreed(String breed);
-    KotikDto getSomeByColor(Color color);
+    List<KotikDto> getAll(String username);
+    KotikDto getOne(Long id, String username);
+    KotikDto getSomeByName(String name, String username);
+    List<KotikDto> getSomeByBreed(String breed, String username);
+    List<KotikDto> getSomeByColor(Color color, String username);
     void delete(Long id) throws EntityNotFoundException;
 
 }
