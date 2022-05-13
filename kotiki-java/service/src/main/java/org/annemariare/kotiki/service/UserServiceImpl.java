@@ -22,8 +22,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void register(UserDto user) {
-        user.setRole(Role.ROLE_USER);
-        userRepository.save(UserConverter.toUser(user));
+        var entity = UserConverter.toUser(user);
+        entity.setRole(Role.ROLE_USER);
+        userRepository.save(entity);
     }
 
     @Override

@@ -2,11 +2,10 @@ package org.annemariare.kotiki.api;
 
 import org.annemariare.kotiki.dto.OwnerDto;
 import org.annemariare.kotiki.exception.EntityAlreadyExistsException;
-import org.annemariare.kotiki.service.OwnerServiceImpl;
+import org.annemariare.kotiki.service.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -14,10 +13,10 @@ import java.security.Principal;
 @RestController
 @RequestMapping(path = "/owners")
 public class OwnerController {
-    private final OwnerServiceImpl service;
+    private final OwnerService service;
 
     @Autowired
-    public OwnerController(OwnerServiceImpl service) {
+    public OwnerController(OwnerService service) {
         this.service = service;
     }
 

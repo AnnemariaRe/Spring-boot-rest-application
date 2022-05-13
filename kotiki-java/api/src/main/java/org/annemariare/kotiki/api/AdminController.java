@@ -2,7 +2,7 @@ package org.annemariare.kotiki.api;
 
 import org.annemariare.kotiki.dto.UserDto;
 import org.annemariare.kotiki.exception.EntityAlreadyExistsException;
-import org.annemariare.kotiki.service.UserServiceImpl;
+import org.annemariare.kotiki.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/admin")
 public class AdminController {
     @Autowired
-    private UserServiceImpl service;
+    private UserService service;
 
     @PostMapping("/register")
     public ResponseEntity<?> save(@RequestBody UserDto user) {

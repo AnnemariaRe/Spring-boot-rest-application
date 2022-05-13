@@ -7,10 +7,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class OwnerDto implements Serializable {
-    private Long id;
-    private String name;
+    private final Long id;
+    private final String name;
     @JsonFormat(pattern="yyyy-MM-dd")
-    private Date birthdayDate;
+    private final Date birthdayDate;
 
     public OwnerDto(OwnerEntity entity) {
         this.id = entity.getId();
@@ -35,17 +35,4 @@ public class OwnerDto implements Serializable {
     public Date getBirthdayDate() {
         return birthdayDate;
     }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setBirthdayDate(Date birthdayDate) {
-        this.birthdayDate = birthdayDate;
-    }
-
 }

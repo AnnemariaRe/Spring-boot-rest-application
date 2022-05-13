@@ -3,11 +3,10 @@ package org.annemariare.kotiki.api;
 import org.annemariare.kotiki.dto.KotikDto;
 import org.annemariare.kotiki.enums.Color;
 import org.annemariare.kotiki.exception.EntityAlreadyExistsException;
-import org.annemariare.kotiki.service.KotikServiceImpl;
+import org.annemariare.kotiki.service.KotikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -16,10 +15,10 @@ import java.security.Principal;
 @RequestMapping(path = "/kotiki")
 public class KotikController {
 
-    private final KotikServiceImpl service;
+    private final KotikService service;
 
     @Autowired
-    public KotikController(KotikServiceImpl service) {
+    public KotikController(KotikService service) {
         this.service = service;
     }
 

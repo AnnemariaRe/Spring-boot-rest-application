@@ -2,7 +2,9 @@ package org.annemariare.kotiki.converter;
 
 import org.annemariare.kotiki.dto.KotikDto;
 import org.annemariare.kotiki.entity.KotikEntity;
+import org.springframework.stereotype.Component;
 
+@Component
 public class KotikConverter {
     public static KotikDto entityToDto(KotikEntity entity) {
         return new KotikDto(entity);

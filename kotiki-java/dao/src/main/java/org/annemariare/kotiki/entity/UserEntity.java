@@ -56,4 +56,12 @@ public class UserEntity extends BaseEntity {
     public OwnerEntity getOwner() {
         return owner;
     }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 }
