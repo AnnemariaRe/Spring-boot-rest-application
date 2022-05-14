@@ -1,9 +1,13 @@
 package org.annemariare.kotiki.service;
 
+import org.annemariare.kotiki.converter.KotikConverter;
 import org.annemariare.kotiki.dao.KotikRepo;
+import org.annemariare.kotiki.dao.UserRepo;
 import org.annemariare.kotiki.dto.KotikDto;
 import org.annemariare.kotiki.entity.KotikEntity;
+import org.annemariare.kotiki.entity.UserEntity;
 import org.annemariare.kotiki.enums.Color;
+import org.annemariare.kotiki.enums.Role;
 import org.annemariare.kotiki.exception.EntityAlreadyExistsException;
 import org.annemariare.kotiki.exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,55 +15,98 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.annemariare.kotiki.dto.KotikConverter.dtoToEntity;
-import static org.annemariare.kotiki.dto.KotikConverter.entityToDto;
+import java.util.Objects;
 
 @Service
 public class KotikServiceImpl implements KotikService {
 
     private final KotikRepo kotikRepo;
+    private final UserRepo userRepo;
+    private final KotikConverter convert;
 
     @Autowired
-    public KotikServiceImpl(KotikRepo kotikRepo) {
+    public KotikServiceImpl(KotikRepo kotikRepo, UserRepo userRepo, KotikConverter convert) {
         this.kotikRepo = kotikRepo;
+        this.userRepo = userRepo;
+        this.convert = convert;
     }
 
     public void add(KotikDto kotik) throws EntityAlreadyExistsException {
         if (kotikRepo.findByName(kotik.getName()) != null) {
             throw new EntityAlreadyExistsException();
         }
-        kotikRepo.save(dtoToEntity(kotik));
+        kotikRepo.save(convert.dtoToEntity(kotik));
     }
 
-    public List<KotikDto> getAll() {
-        List<KotikEntity> kotiki = kotikRepo.findAll();
+    public List<KotikDto> getAll(String username) {
+        UserEntity user = userRepo.findByUsername(username);
 
-        List<KotikDto> dto = new ArrayList<>();
-        for (var entity : kotiki) {
-            dto.add(entityToDto(entity));
+        if (user.getRole() == Role.ROLE_ADMIN) {
+            List<KotikEntity> kotiki2 = kotikRepo.findAll();
+            List<KotikDto> dto2 = new ArrayList<>();
+            for (var entity : kotiki2) dto2.add(convert.entityToDto(entity));
+
+            return dto2;
+        } else {
+            List<KotikEntity> kotiki = kotikRepo.findAllByOwner(user.getOwner());
+            List<KotikDto> dto = new ArrayList<>();
+            for (var entity : kotiki) dto.add(convert.entityToDto(entity));
+            return dto;
         }
-        return dto;
     }
 
-    public KotikDto getOne(Long id) {
+    public KotikDto getOne(Long id, String username) {
         KotikEntity kotik = kotikRepo.findById(id);
-        return entityToDto(kotik);
+        UserEntity user = userRepo.findByUsername(username);
+
+        if (Objects.equals(user.getOwner().getId(), kotik.getOwner().getId())
+                || user.getRole() == Role.ROLE_ADMIN) {
+            return convert.entityToDto(kotik);
+        }
+
+        throw new EntityNotFoundException();
     }
 
-    public KotikDto getSomeByName(String name) {
+    public KotikDto getSomeByName(String name, String username) {
         KotikEntity kotik = kotikRepo.findByName(name);
-        return entityToDto(kotik);
+        UserEntity user = userRepo.findByUsername(username);
+
+        if (Objects.equals(user.getOwner().getId(), kotik.getOwner().getId())
+                || user.getRole() == Role.ROLE_ADMIN) {
+            return convert.entityToDto(kotik);
+        }
+
+        throw new EntityNotFoundException();
     }
 
-    public KotikDto getSomeByBreed(String breed) {
-        KotikEntity kotik = kotikRepo.findByBreed(breed);
-        return entityToDto(kotik);
+    public List<KotikDto> getSomeByBreed(String breed, String username) {
+        List<KotikEntity> kotiki = kotikRepo.findByBreed(breed);
+        List<KotikDto> dto = new ArrayList<>();
+        for (var entity : kotiki) dto.add(convert.entityToDto(entity));
+
+        UserEntity user = userRepo.findByUsername(username);
+        if (user.getRole() == Role.ROLE_ADMIN) return dto;
+        else if (user.getOwner() != null) {
+            dto.removeIf(d -> !Objects.equals(d.getOwner().getId(), user.getOwner().getId()));
+            return dto;
+        }
+
+        throw new EntityNotFoundException();
     }
 
-    public KotikDto getSomeByColor(Color color) {
-        KotikEntity kotik = kotikRepo.findByColor(color);
-        return entityToDto(kotik);
+    public List<KotikDto> getSomeByColor(Color color, String username) {
+        List<KotikEntity> kotiki = kotikRepo.findByColor(color);
+        List<KotikDto> dto = new ArrayList<>();
+        for (var entity : kotiki) dto.add(convert.entityToDto(entity));
+
+        UserEntity user = userRepo.findByUsername(username);
+        if (user.getRole() == Role.ROLE_ADMIN) return dto;
+        else if (user.getOwner() != null) {
+            dto.removeIf(d -> !Objects.equals(d.getOwner().getId(), user.getOwner().getId()));
+            return dto;
+        }
+
+        throw new EntityNotFoundException();
     }
 
     public void delete(Long id) throws EntityNotFoundException {

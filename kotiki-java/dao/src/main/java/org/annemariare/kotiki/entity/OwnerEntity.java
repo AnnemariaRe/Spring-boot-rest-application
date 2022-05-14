@@ -1,6 +1,7 @@
 package org.annemariare.kotiki.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,8 +12,6 @@ import java.util.List;
 @Table(name = "owners")
 public class OwnerEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name= "owner_id")
     private Long id;
 
     @Column(name = "name", nullable = false)
@@ -22,8 +21,12 @@ public class OwnerEntity {
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date birthdayDate;
 
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner")
     private List<KotikEntity> kotiki;
+
+    @OneToOne(mappedBy = "owner")
+    private UserEntity user;
 
     public OwnerEntity() {}
 
@@ -51,31 +54,23 @@ public class OwnerEntity {
         }
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Date getBirthdayDate() {
         return birthdayDate;
     }
 
-    public void setBirthdayDate(Date birthdayDate) {
-        this.birthdayDate = birthdayDate;
-    }
-
     public List<KotikEntity> getKotiki() {
         return kotiki;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

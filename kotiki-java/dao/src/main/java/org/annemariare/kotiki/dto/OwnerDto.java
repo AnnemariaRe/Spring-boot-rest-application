@@ -3,10 +3,10 @@ package org.annemariare.kotiki.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.annemariare.kotiki.entity.OwnerEntity;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Date;
 
-public class OwnerDto {
+public class OwnerDto implements Serializable {
     private final Long id;
     private final String name;
     @JsonFormat(pattern="yyyy-MM-dd")

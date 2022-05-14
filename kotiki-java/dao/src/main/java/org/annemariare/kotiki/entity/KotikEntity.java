@@ -1,5 +1,6 @@
 package org.annemariare.kotiki.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.annemariare.kotiki.enums.Color;
 
@@ -30,7 +31,8 @@ public class KotikEntity {
     @Enumerated(EnumType.STRING)
     private Color color;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", nullable = false)
     private OwnerEntity owner;
 
@@ -64,55 +66,27 @@ public class KotikEntity {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Date getBirthdayDate() {
         return birthdayDate;
     }
 
-    public void setBirthdayDate(Date birthdayDate) {
-        this.birthdayDate = birthdayDate;
-    }
-
     public String getBreed() {
         return breed;
-    }
-
-    public void setBreed(String breed) {
-        this.breed = breed;
     }
 
     public Color getColor() {
         return color;
     }
 
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
     public OwnerEntity getOwner() {
         return owner;
     }
 
-    public void setOwner(OwnerEntity owner) {
-        this.owner = owner;
-    }
-
     public List<KotikEntity> getFriends() {
         return friends;
-    }
-
-    public void setFriends(List<KotikEntity> friends) {
-        this.friends = friends;
     }
 }
