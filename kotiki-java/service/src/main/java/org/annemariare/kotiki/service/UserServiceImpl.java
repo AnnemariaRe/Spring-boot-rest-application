@@ -14,15 +14,17 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepo userRepository;
+    private final UserConverter convert;
 
     @Autowired
-    public UserServiceImpl(UserRepo userRepository) {
+    public UserServiceImpl(UserRepo userRepository, UserConverter convert) {
         this.userRepository = userRepository;
+        this.convert = convert;
     }
 
     @Override
     public void register(UserDto user) {
-        var entity = UserConverter.toUser(user);
+        var entity = convert.toUser(user);
         entity.setRole(Role.ROLE_USER);
         userRepository.save(entity);
     }
@@ -32,7 +34,7 @@ public class UserServiceImpl implements UserService {
         List<UserEntity> users = userRepository.findAll();
         List<UserDto> dto = new ArrayList<>();
         for (var entity : users) {
-            dto.add(UserConverter.fromUser(entity));
+            dto.add(convert.fromUser(entity));
         }
 
         return dto;

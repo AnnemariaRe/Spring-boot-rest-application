@@ -9,11 +9,11 @@ import java.util.ArrayList;
 
 @Component
 public class OwnerConverter {
-    public static OwnerDto entityToDto(OwnerEntity entity) {
+    public OwnerDto entityToDto(OwnerEntity entity) {
         return new OwnerDto(entity);
     }
 
-    public static OwnerEntity dtoToEntity(OwnerDto dto) {
+    public OwnerEntity dtoToEntity(OwnerDto dto) {
         return new OwnerEntity(dto.getId(), dto.getName(), dto.getBirthdayDate(), new ArrayList<>());
     }
 }

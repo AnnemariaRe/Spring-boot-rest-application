@@ -1,6 +1,7 @@
 package org.annemariare.kotiki.service;
 
 import org.annemariare.kotiki.converter.KotikConverter;
+import org.annemariare.kotiki.converter.OwnerConverter;
 import org.annemariare.kotiki.dao.OwnerRepo;
 import org.annemariare.kotiki.dao.UserRepo;
 import org.annemariare.kotiki.dto.KotikDto;
@@ -18,18 +19,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static org.annemariare.kotiki.converter.OwnerConverter.dtoToEntity;
-import static org.annemariare.kotiki.converter.OwnerConverter.entityToDto;
-
 @Service
 public class OwnerServiceImpl implements OwnerService {
     private final OwnerRepo ownerRepo;
     private final UserRepo userRepo;
+    private final OwnerConverter convert;
+    private final KotikConverter kotikConvert;
 
     @Autowired
-    public OwnerServiceImpl(OwnerRepo ownerRepo, UserRepo userRepo) {
+    public OwnerServiceImpl(OwnerRepo ownerRepo, UserRepo userRepo, OwnerConverter convert, KotikConverter kotikConvert) {
         this.ownerRepo = ownerRepo;
         this.userRepo = userRepo;
+        this.convert = convert;
+        this.kotikConvert = kotikConvert;
     }
 
     public void add(OwnerDto owner) throws EntityAlreadyExistsException {
@@ -37,14 +39,14 @@ public class OwnerServiceImpl implements OwnerService {
             throw new EntityAlreadyExistsException();
         }
 
-        ownerRepo.save(dtoToEntity(owner));
+        ownerRepo.save(convert.dtoToEntity(owner));
     }
 
     public List<OwnerDto> getAll() {
         List<OwnerEntity> owners = ownerRepo.findAll();
         List<OwnerDto> dto = new ArrayList<>();
         for (var entity : owners) {
-            dto.add(entityToDto(entity));
+            dto.add(convert.entityToDto(entity));
         }
         return dto;
     }
@@ -55,7 +57,7 @@ public class OwnerServiceImpl implements OwnerService {
         if (Objects.equals(owner.getId(), user.getOwner().getId()) || user.getRole() == Role.ROLE_ADMIN) {
             List<KotikEntity> kotiki = owner.getKotiki();
             List<KotikDto> dto = new ArrayList<>();
-            for (var entity : kotiki) dto.add(KotikConverter.entityToDto(entity));
+            for (var entity : kotiki) dto.add(kotikConvert.entityToDto(entity));
 
             return dto;
         }
@@ -65,17 +67,17 @@ public class OwnerServiceImpl implements OwnerService {
 
     public OwnerDto getOne(String username) {
         OwnerEntity owner = userRepo.findByUsername(username).getOwner();
-        return entityToDto(owner);
+        return convert.entityToDto(owner);
     }
 
     public OwnerDto getOne(Long id) {
         OwnerEntity owner = ownerRepo.findById(id);
-        return entityToDto(owner);
+        return convert.entityToDto(owner);
     }
 
     public OwnerDto getSomeByName(String name) {
         OwnerEntity owner = ownerRepo.findByName(name);
-        return entityToDto(owner);
+        return convert.entityToDto(owner);
     }
 
     public void delete(Long id) throws EntityNotFoundException {

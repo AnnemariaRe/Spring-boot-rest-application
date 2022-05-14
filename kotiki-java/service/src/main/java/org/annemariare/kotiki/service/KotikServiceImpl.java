@@ -1,5 +1,6 @@
 package org.annemariare.kotiki.service;
 
+import org.annemariare.kotiki.converter.KotikConverter;
 import org.annemariare.kotiki.dao.KotikRepo;
 import org.annemariare.kotiki.dao.UserRepo;
 import org.annemariare.kotiki.dto.KotikDto;
@@ -16,43 +17,42 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static org.annemariare.kotiki.converter.KotikConverter.dtoToEntity;
-import static org.annemariare.kotiki.converter.KotikConverter.entityToDto;
-
 @Service
 public class KotikServiceImpl implements KotikService {
 
     private final KotikRepo kotikRepo;
     private final UserRepo userRepo;
+    private final KotikConverter convert;
 
     @Autowired
-    public KotikServiceImpl(KotikRepo kotikRepo, UserRepo userRepo) {
+    public KotikServiceImpl(KotikRepo kotikRepo, UserRepo userRepo, KotikConverter convert) {
         this.kotikRepo = kotikRepo;
         this.userRepo = userRepo;
+        this.convert = convert;
     }
 
     public void add(KotikDto kotik) throws EntityAlreadyExistsException {
         if (kotikRepo.findByName(kotik.getName()) != null) {
             throw new EntityAlreadyExistsException();
         }
-        kotikRepo.save(dtoToEntity(kotik));
+        kotikRepo.save(convert.dtoToEntity(kotik));
     }
 
     public List<KotikDto> getAll(String username) {
         UserEntity user = userRepo.findByUsername(username);
 
-        List<KotikEntity> kotiki = kotikRepo.findAllByOwner(user.getOwner());
-        List<KotikDto> dto = new ArrayList<>();
-        for (var entity : kotiki) dto.add(entityToDto(entity));
-
         if (user.getRole() == Role.ROLE_ADMIN) {
             List<KotikEntity> kotiki2 = kotikRepo.findAll();
             List<KotikDto> dto2 = new ArrayList<>();
-            for (var entity : kotiki2) dto2.add(entityToDto(entity));
+            for (var entity : kotiki2) dto2.add(convert.entityToDto(entity));
 
             return dto2;
+        } else {
+            List<KotikEntity> kotiki = kotikRepo.findAllByOwner(user.getOwner());
+            List<KotikDto> dto = new ArrayList<>();
+            for (var entity : kotiki) dto.add(convert.entityToDto(entity));
+            return dto;
         }
-        return dto;
     }
 
     public KotikDto getOne(Long id, String username) {
@@ -61,7 +61,7 @@ public class KotikServiceImpl implements KotikService {
 
         if (Objects.equals(user.getOwner().getId(), kotik.getOwner().getId())
                 || user.getRole() == Role.ROLE_ADMIN) {
-            return entityToDto(kotik);
+            return convert.entityToDto(kotik);
         }
 
         throw new EntityNotFoundException();
@@ -73,7 +73,7 @@ public class KotikServiceImpl implements KotikService {
 
         if (Objects.equals(user.getOwner().getId(), kotik.getOwner().getId())
                 || user.getRole() == Role.ROLE_ADMIN) {
-            return entityToDto(kotik);
+            return convert.entityToDto(kotik);
         }
 
         throw new EntityNotFoundException();
@@ -82,7 +82,7 @@ public class KotikServiceImpl implements KotikService {
     public List<KotikDto> getSomeByBreed(String breed, String username) {
         List<KotikEntity> kotiki = kotikRepo.findByBreed(breed);
         List<KotikDto> dto = new ArrayList<>();
-        for (var entity : kotiki) dto.add(entityToDto(entity));
+        for (var entity : kotiki) dto.add(convert.entityToDto(entity));
 
         UserEntity user = userRepo.findByUsername(username);
         if (user.getRole() == Role.ROLE_ADMIN) return dto;
@@ -97,7 +97,7 @@ public class KotikServiceImpl implements KotikService {
     public List<KotikDto> getSomeByColor(Color color, String username) {
         List<KotikEntity> kotiki = kotikRepo.findByColor(color);
         List<KotikDto> dto = new ArrayList<>();
-        for (var entity : kotiki) dto.add(entityToDto(entity));
+        for (var entity : kotiki) dto.add(convert.entityToDto(entity));
 
         UserEntity user = userRepo.findByUsername(username);
         if (user.getRole() == Role.ROLE_ADMIN) return dto;
