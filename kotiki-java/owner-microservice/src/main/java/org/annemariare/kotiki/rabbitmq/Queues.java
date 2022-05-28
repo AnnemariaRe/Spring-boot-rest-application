@@ -12,62 +12,62 @@ public class Queues {
     public static final String ROUTING_KEY = "message_routingKey";
 
     @Bean
-    Queue queue6() {
+    Queue owner_save_queue() {
         return new Queue("owner_save", false);
     }
 
     @Bean
-    Queue queue7() {
+    Queue owner_id_queue() {
         return new Queue("owner_id", false);
     }
 
     @Bean
-    Queue queue8() {
+    Queue owner_name_queue() {
         return new Queue("owner_name", false);
     }
 
     @Bean
-    Queue queue9() {
+    Queue owner_delete_queue() {
         return new Queue("owner_delete", false);
     }
 
     @Bean
-    Queue queue10() {
+    Queue owner_all_queue() {
         return new Queue("owner_all", false);
     }
 
     @Bean
-    Queue queue11() {
+    Queue owner_kotiki_queue() {
         return new Queue("owner_kotiki", false);
     }
 
     @Bean
-    Binding binding7(Queue queue6, TopicExchange exchange) {
+    Binding binding_save2(Queue queue6, TopicExchange exchange) {
         return BindingBuilder.bind(queue6).to(exchange).with(ROUTING_KEY+"o_save");
     }
 
     @Bean
-    Binding binding8(Queue queue7, TopicExchange exchange) {
+    Binding binding_id2(Queue queue7, TopicExchange exchange) {
         return BindingBuilder.bind(queue7).to(exchange).with(ROUTING_KEY+"o_id");
     }
 
     @Bean
-    Binding binding9(Queue queue8, TopicExchange exchange) {
+    Binding binding_name2(Queue queue8, TopicExchange exchange) {
         return BindingBuilder.bind(queue8).to(exchange).with(ROUTING_KEY+"o_name");
     }
 
     @Bean
-    Binding binding10(Queue queue9, TopicExchange exchange) {
+    Binding binding_delete2(Queue queue9, TopicExchange exchange) {
         return BindingBuilder.bind(queue9).to(exchange).with(ROUTING_KEY+"o_delete");
     }
 
     @Bean
-    Binding binding11(Queue queue10, TopicExchange exchange) {
+    Binding binding_all2(Queue queue10, TopicExchange exchange) {
         return BindingBuilder.bind(queue10).to(exchange).with(ROUTING_KEY+"o_all");
     }
 
     @Bean
-    Binding binding12(Queue queue11, TopicExchange exchange) {
+    Binding binding_kotiki(Queue queue11, TopicExchange exchange) {
         return BindingBuilder.bind(queue11).to(exchange).with(ROUTING_KEY+"o_kotiki");
     }
 }
