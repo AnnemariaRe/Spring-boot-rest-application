@@ -12,64 +12,63 @@ public class Queues {
     public static final String ROUTING_KEY = "message_routingKey";
 
     @Bean
-    Queue cat_id_queue() {
+    Queue catIdQueue() {
         return new Queue("cat_id", false);
     }
 
     @Bean
-    Queue cat_name_queue() {
+    Queue catNameQueue() {
         return new Queue("cat_name", false);
     }
 
     @Bean
-    Queue cat_save_queue() {
+    Queue catSavequeue() {
         return new Queue("cat_save", false);
     }
 
     @Bean
-    Queue cat_color_queue() {
+    Queue catColorQueue() {
         return new Queue("cat_color", false);
     }
 
     @Bean
-    Queue cat_delete_queue() {
+    Queue catDeleteQueue() {
         return new Queue("cat_delete", false);
     }
 
     @Bean
-    Queue cat_all_queue() {
+    Queue catAllQueue() {
         return new Queue("cat_all", false);
     }
 
     @Bean
-    Binding binding_id(Queue queue, TopicExchange exchange) {
+    Binding bindingId(Queue queue, TopicExchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY+"id");
     }
 
     @Bean
-    Binding binding_name(Queue queue1, TopicExchange exchange) {
+    Binding bindingName(Queue queue1, TopicExchange exchange) {
         return BindingBuilder.bind(queue1).to(exchange).with(ROUTING_KEY+"name");
     }
 
     @Bean
-    Binding binding_save(Queue queue2, TopicExchange exchange) {
+    Binding bindingSave(Queue queue2, TopicExchange exchange) {
         return BindingBuilder.bind(queue2).to(exchange).with(ROUTING_KEY+"save");
     }
 
     @Bean
-    Binding binding_color(Queue queue3, TopicExchange exchange) {
+    Binding bindingColor(Queue queue3, TopicExchange exchange) {
         return BindingBuilder.bind(queue3).to(exchange).with(ROUTING_KEY+"color");
     }
 
     @Bean
-    Binding binding_delete(Queue queue4, TopicExchange exchange) {
+    Binding bindingDelete(Queue queue4, TopicExchange exchange) {
         return BindingBuilder.bind(queue4).to(exchange).with(ROUTING_KEY+"delete");
     }
 
     @Bean
-    Binding binding_all(Queue queue5, TopicExchange exchange) {
+    Binding bindingAll(Queue queue5, TopicExchange exchange) {
         return BindingBuilder.bind(queue5).to(exchange).with(ROUTING_KEY+"all");
     }
-
 
 }
