@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
     
     <parent>
-        <groupId>org.annemariare.kotiki</groupId>
-        <artifactId>kotiki-java</artifactId>
+        <groupId>org.annemariare.cats</groupId>
+        <artifactId>cats-java</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -21,7 +21,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.annemariare.kotiki</groupId>
+            <groupId>org.annemariare.cats</groupId>
             <artifactId>jpa-entities</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
